@@ -16,11 +16,15 @@ function App() {
   }, []);
 
   function createTodo() {
-    client.models.Todo.create({ content: window.prompt("Todo content") });
+    client.models.Todo.create({ content: window.prompt("Todo content"), isDone: false });
   }
 
   function deleteTodo(id: string) {
       client.models.Todo.delete({ id })
+  }
+
+  function fixTodo(id: string) {
+      client.models.Todo.update({ id, isDone: true })
   }
 
   return (
@@ -28,13 +32,13 @@ function App() {
       {({ signOut, user }) => (
     <main>
       <h1>My todos</h1>
-      <h1>{user?.signInDetails?.loginId}'s todos!</h1>
+      <h1>{user?.signInDetails?.loginId}'s QUUX!</h1>
       <button onClick={createTodo}>+ new</button>
       <ul>
         {todos.map((todo) => (
-          <li
-          onClick={() => deleteTodo(todo.id)}
-          key={todo.id}>{todo.content}
+          <li onClick={() => fixTodo(todo.id)}
+          key={todo.id}>
+          {todo.content} - {todo.isDone ? 'Done' : 'Not Done'}
           </li>
         ))}
       </ul>
