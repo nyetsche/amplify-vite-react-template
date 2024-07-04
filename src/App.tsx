@@ -16,6 +16,8 @@ const client = generateClient<Schema>();
 function App() {
   const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
 
+  const region = region_info.RegionInfo.get('us-east-2');
+
   useEffect(() => {
     client.models.Todo.observeQuery().subscribe({
       next: (data) => setTodos([...data.items]),
@@ -38,8 +40,10 @@ function App() {
       <Authenticator>
       {({ signOut, user }) => (
     <main>
+    <DefaultHeadingExample />
       <h1>My todos</h1>
       <h1>{user?.signInDetails?.loginId}'s QUUX!</h1>
+      <h1>{region?.s3StaticWebsiteEndpoint}</h1>
       <button onClick={createTodo}>+ new</button>
       <ul>
         {todos.map((todo) => (
