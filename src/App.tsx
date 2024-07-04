@@ -2,7 +2,14 @@ import { useEffect, useState } from "react";
 import type { Schema } from "../amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
 import { Authenticator } from '@aws-amplify/ui-react';
+import { Heading } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
+import { DefaultHeadingExample } from './DefaultHeadingExample.tsx';
+import { region_info } from 'aws-cdk-lib';
+import { CfnOutput, Stack, StackProps } from 'aws-cdk-lib';
+import { Bucket } from 'aws-cdk-lib/aws_s3';
+import { Construct } from 'constructs';
+
 
 const client = generateClient<Schema>();
 
